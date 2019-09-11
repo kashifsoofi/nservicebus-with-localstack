@@ -17,5 +17,8 @@ services:
       - HOSTNAME=localhost
       - HOSTNAME_EXTERNAL=localhost
     volumes:
-      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - localstackdata:/tmp/localstack
       - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  localstackdata:
