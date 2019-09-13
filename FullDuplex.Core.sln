@@ -1,15 +1,19 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 15.0.26730.12
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Core", "Client\Client.Core.csproj", "{9F8E556C-0AFA-4C5D-B64F-AE9376ABF145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Core", "src\Client.Core\Client.Core.csproj", "{9F8E556C-0AFA-4C5D-B64F-AE9376ABF145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Core", "Server\Server.Core.csproj", "{CA4DB5DB-88E3-45C2-92EC-ED1865FB83B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Core", "src\Server.Core\Server.Core.csproj", "{CA4DB5DB-88E3-45C2-92EC-ED1865FB83B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "Shared\Shared.Core.csproj", "{20F613ED-C871-477C-B1E4-48B96CACF794}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Core", "src\Shared.Core\Shared.Core.csproj", "{20F613ED-C871-477C-B1E4-48B96CACF794}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Api", "Core.Api\Core.Api.csproj", "{F787216E-D8F0-43B2-A1EF-BD47A03B2803}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Api", "src\Core.Api\Core.Api.csproj", "{F787216E-D8F0-43B2-A1EF-BD47A03B2803}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker-compose", "docker-compose", "{5F2AE580-0557-43A1-A58A-FC5F40D1237F}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +40,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1D28666-7AD3-4CC3-BD85-DB18DBFCBBEE}
 	EndGlobalSection
 EndGlobal

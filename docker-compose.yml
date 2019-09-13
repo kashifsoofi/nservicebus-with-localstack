@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   localstack:
-    image: localstack/localstack:0.10.2
+    image: localstack/localstack
     ports:
       - "4567-4597:4567-4597"
       - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
@@ -14,11 +14,29 @@ services:
       - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
       - DOCKER_HOST=unix:///var/run/docker.sock      
       - DEFAULT_REGION=eu-west-1
-      - HOSTNAME=localhost
-      - HOSTNAME_EXTERNAL=localhost
+      - HOSTNAME=localstack
+      - HOSTNAME_EXTERNAL=localstack
     volumes:
       - localstackdata:/tmp/localstack
       - /var/run/docker.sock:/var/run/docker.sock
+
+  server.core:
+    image: server.core
+    depends_on:
+      - localstack
+    build:
+      context: .
+      dockerfile: src/Server.Core/Dockerfile
+
+  core.api:
+    image: core.api
+    ports:
+      - "8000:80"
+    depends_on:
+      - localstack
+    build:
+      context: .
+      dockerfile: src/Core.Api/Dockerfile
 
 volumes:
   localstackdata:
