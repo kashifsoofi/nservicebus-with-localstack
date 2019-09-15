@@ -29,7 +29,7 @@
             services.AddSingleton<IHostedService, NServiceBusService>();
             services.AddSingleton(provider =>
             {
-                var nServiceBusService = provider.GetService<NServiceBusService>();
+                var nServiceBusService = provider.GetService<IHostedService>() as NServiceBusService;
                 if (nServiceBusService.MessageSession != null)
                 {
                     return nServiceBusService.MessageSession;

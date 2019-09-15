@@ -49,7 +49,7 @@
                 new AnonymousAWSCredentials(),
                 new AmazonSQSConfig
                 {
-                    ServiceURL = "http://localhost:4576"
+                    ServiceURL = "http://localstack:4576"
                 }));
 
             var s3Configuration = transport.S3("bucketname", "my/key/prefix");
@@ -57,7 +57,7 @@
                 new AnonymousAWSCredentials(),
                 new AmazonS3Config
                 {
-                    ServiceURL = "http://localhost:4572"
+                    ServiceURL = "http://localstack:4572"
                 }));
 
             endpointConfiguration.SendFailedMessagesTo("error");
