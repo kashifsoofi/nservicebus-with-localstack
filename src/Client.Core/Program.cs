@@ -14,6 +14,7 @@ class Program
         LogManager.Use<DefaultFactory>()
             .Level(LogLevel.Info);
         var endpointConfiguration = new EndpointConfiguration("Samples.FullDuplex.Client");
+        endpointConfiguration.DoNotCreateQueues();
 
         var transport = endpointConfiguration.UseTransport<SqsTransport>();
         transport.ClientFactory(() => new AmazonSQSClient(

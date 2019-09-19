@@ -12,7 +12,7 @@ services:
       - DATA_DIR=${DATA_DIR- }
       - PORT_WEB_UI=${PORT_WEB_UI- }
       - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
-      - DOCKER_HOST=unix:///var/run/docker.sock      
+      - DOCKER_HOST=unix:///var/run/docker.sock
       - DEFAULT_REGION=eu-west-1
       - HOSTNAME=localstack
       - HOSTNAME_EXTERNAL=localstack
@@ -20,23 +20,34 @@ services:
       - localstackdata:/tmp/localstack
       - /var/run/docker.sock:/var/run/docker.sock
 
+  localstack-setup:
+    build:
+      context: ./localstack-setup
+    depends_on:
+      - localstack
+    environment:
+      - "AWS_SECRET_ACCESS_KEY=DUMMY_KEY"
+      - "AWS_ACCESS_KEY_ID=DUMMY_KEY"
+
   server.core:
     image: server.core
     depends_on:
-      - localstack
+      - localstack-setup
+      - api.core
     build:
       context: .
       dockerfile: src/Server.Core/Dockerfile
 
-  core.api:
-    image: core.api
-    ports:
-      - "8000:80"
+  api.core:
+    image: api.core
     depends_on:
-      - localstack
+      - localstack-setup
     build:
       context: .
-      dockerfile: src/Core.Api/Dockerfile
+      dockerfile: src/Api.Core/Dockerfile
+    ports:
+      - "8000:80"
 
 volumes:
   localstackdata:
+  

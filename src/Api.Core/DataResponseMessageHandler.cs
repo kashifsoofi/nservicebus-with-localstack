@@ -1,4 +1,4 @@
-﻿namespace Core.Api
+﻿namespace Api.Core
 {
     using System.Threading.Tasks;
     using NServiceBus;

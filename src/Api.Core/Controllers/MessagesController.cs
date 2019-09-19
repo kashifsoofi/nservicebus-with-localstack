@@ -3,18 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NServiceBus;
 
-namespace Core.Api.Controllers
+namespace Api.Core.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class MessagesController : ControllerBase
     {
+        private readonly IMessageSession _messageSession;
+
+        public MessagesController(IMessageSession messageSession)
+        {
+            _messageSession = messageSession;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var guid = Guid.NewGuid();
+            var message = new RequestDataMessage
+            {
+                DataId = guid,
+                String = "String property value"
+            };
+
+            await _messageSession.Send("Samples.FullDuplex.Server", message)
+                .ConfigureAwait(false);
+
+            return guid.ToString();
         }
 
         // GET api/values/5

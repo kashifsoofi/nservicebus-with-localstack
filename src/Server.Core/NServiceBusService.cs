@@ -33,6 +33,7 @@
         private EndpointConfiguration ConfigureEndpoint()
         {
             var endpointConfiguration = new EndpointConfiguration("Samples.FullDuplex.Server");
+            endpointConfiguration.DoNotCreateQueues();
 
             var transport = endpointConfiguration.UseTransport<SqsTransport>();
             transport.ClientFactory(() => new AmazonSQSClient(
@@ -42,13 +43,13 @@
                     ServiceURL = "http://localstack:4576"
                 }));
 
-            var s3Configuration = transport.S3("bucketname", "my/key/prefix");
-            s3Configuration.ClientFactory(() => new AmazonS3Client(
-                new AnonymousAWSCredentials(),
-                new AmazonS3Config
-                {
-                    ServiceURL = "http://localstack:4572"
-                }));
+            //var s3Configuration = transport.S3("bucketname", "my/key/prefix");
+            //s3Configuration.ClientFactory(() => new AmazonS3Client(
+            //    new AnonymousAWSCredentials(),
+            //    new AmazonS3Config
+            //    {
+            //        ServiceURL = "http://localstack:4572"
+            //    }));
 
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();

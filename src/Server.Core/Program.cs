@@ -1,3 +1,4 @@
+using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server.Core;
@@ -7,6 +8,7 @@ class Program
 {
     static async Task Main()
     {
+        Thread.Sleep(15000);
         var host = new HostBuilder()
             .ConfigureServices((hostBuilderContext, services) => { services.AddHostedService<NServiceBusService>(); })
             .UseConsoleLifetime()

@@ -13,8 +13,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="NServiceBus" Version="7.1.10" />
     <PackageReference Include="NServiceBus.AmazonSQS" Version="4.3.4" />
-    <PackageReference Include="AWSSDK.S3" Version="3.3.104.24" />
-    <PackageReference Include="AWSSDK.SQS" Version="3.3.102.4" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.104.28" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.3.102.8" />
   </ItemGroup>
 
   <ItemGroup>

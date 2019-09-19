@@ -17,10 +17,10 @@ COPY ./src ./src
 RUN dotnet build -c Release --no-restore
 
 FROM build AS publish
-RUN dotnet publish "./src/Core.Api/Core.Api.csproj" -c Release -o /app --no-restore
+RUN dotnet publish "./src/Api.Core/Api.Core.csproj" -c Release -o /app --no-restore
 
 # Api image
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine
 WORKDIR /app
 COPY --from=publish /app ./
-ENTRYPOINT ["dotnet", "Core.Api.dll"]
+ENTRYPOINT ["dotnet", "Api.Core.dll"]
