@@ -43,7 +43,7 @@
                     ServiceURL = "http://localstack:4576"
                 }));
 
-            var s3Configuration = transport.S3("bucketname", "my/key/prefix");
+            var s3Configuration = transport.S3("bucketname", "Samples-FullDuplex-Server");
             s3Configuration.ClientFactory(() => new AmazonS3Client(
                 new AnonymousAWSCredentials(),
                 new AmazonS3Config
