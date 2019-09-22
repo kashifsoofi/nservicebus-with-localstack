@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker-compose", "docker-co
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Core", "src\NServiceBus.Core\NServiceBus.Core.csproj", "{EEF55021-FF1B-403A-BE9B-562E0686F890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.AmazonSQS", "src\NServiceBus.AmazonSQS\NServiceBus.AmazonSQS.csproj", "{0E75E2E1-5702-48CF-B103-861D49DBACC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{F787216E-D8F0-43B2-A1EF-BD47A03B2803}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F787216E-D8F0-43B2-A1EF-BD47A03B2803}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F787216E-D8F0-43B2-A1EF-BD47A03B2803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF55021-FF1B-403A-BE9B-562E0686F890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF55021-FF1B-403A-BE9B-562E0686F890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF55021-FF1B-403A-BE9B-562E0686F890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF55021-FF1B-403A-BE9B-562E0686F890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E75E2E1-5702-48CF-B103-861D49DBACC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E75E2E1-5702-48CF-B103-861D49DBACC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E75E2E1-5702-48CF-B103-861D49DBACC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E75E2E1-5702-48CF-B103-861D49DBACC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
