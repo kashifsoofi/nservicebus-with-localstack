@@ -33,9 +33,9 @@
         private EndpointConfiguration ConfigureEndpoint()
         {
             var endpointConfiguration = new EndpointConfiguration("Samples.FullDuplex.Server");
-            // endpointConfiguration.DoNotCreateQueues();
+            endpointConfiguration.DoNotCreateQueues();
 
-            var serverName = "localhost";
+            var serverName = "localstack";
             var transport = endpointConfiguration.UseTransport<SqsTransport>();
             transport.ClientFactory(() => new AmazonSQSClient(
                 new AnonymousAWSCredentials(),
