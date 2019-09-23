@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   localstack:
-    image: localstack/localstack
+    image: localstack/localstack:0.10.2
     ports:
       - "4567-4597:4567-4597"
       - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
@@ -33,7 +33,6 @@ services:
     image: server.core
     depends_on:
       - localstack-setup
-      - api.core
     build:
       context: .
       dockerfile: src/Server.Core/Dockerfile

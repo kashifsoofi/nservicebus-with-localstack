@@ -35,12 +35,13 @@
             var endpointConfiguration = new EndpointConfiguration("Samples.FullDuplex.Server");
             endpointConfiguration.DoNotCreateQueues();
 
+            var serverName = "localstack";
             var transport = endpointConfiguration.UseTransport<SqsTransport>();
             transport.ClientFactory(() => new AmazonSQSClient(
                 new AnonymousAWSCredentials(),
                 new AmazonSQSConfig
                 {
-                    ServiceURL = "http://localstack:4576"
+                    ServiceURL = $"http://{serverName}:4576"
                 }));
 
             var s3Configuration = transport.S3("bucketname", "Samples-FullDuplex-Server");
@@ -48,7 +49,8 @@
                 new AnonymousAWSCredentials(),
                 new AmazonS3Config
                 {
-                    ServiceURL = "http://localstack:4572"
+                    ServiceURL = $"http://{serverName}:4572",
+                    ForcePathStyle = true,
                 }));
 
             endpointConfiguration.SendFailedMessagesTo("error");
