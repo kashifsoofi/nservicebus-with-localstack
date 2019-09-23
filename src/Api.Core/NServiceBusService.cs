@@ -43,7 +43,9 @@
         private EndpointConfiguration ConfigureEndpoint()
         {
             var endpointConfiguration = new EndpointConfiguration("Samples.FullDuplex.Client");
-            endpointConfiguration.DoNotCreateQueues();
+            // endpointConfiguration.DoNotCreateQueues();
+
+            endpointConfiguration.MakeInstanceUniquelyAddressable("1");
 
             var serverName = "localstack";
             var transport = endpointConfiguration.UseTransport<SqsTransport>();
