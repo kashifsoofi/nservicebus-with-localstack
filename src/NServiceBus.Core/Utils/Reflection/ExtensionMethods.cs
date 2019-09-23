@@ -113,6 +113,6 @@ namespace NServiceBus
 
         static ConcurrentDictionary<RuntimeTypeHandle, string> TypeToNameLookup = new ConcurrentDictionary<RuntimeTypeHandle, string>();
 
-        static byte[] nsbPublicKeyToken = typeof(TypeExtensionMethods).Assembly.GetName().GetPublicKeyToken();
+        static byte[] nsbPublicKeyToken = { 1 };
     }
 }

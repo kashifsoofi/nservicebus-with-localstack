@@ -43,7 +43,9 @@
         private EndpointConfiguration ConfigureEndpoint()
         {
             var endpointConfiguration = new EndpointConfiguration("Samples.FullDuplex.Client");
-            // endpointConfiguration.DoNotCreateQueues();
+            endpointConfiguration.DoNotCreateQueues();
+
+            endpointConfiguration.MakeInstanceUniquelyAddressable("api.core");
 
             var serverName = "localhost";
             var transport = endpointConfiguration.UseTransport<SqsTransport>();
@@ -59,7 +61,8 @@
                 new AnonymousAWSCredentials(),
                 new AmazonS3Config
                 {
-                    ServiceURL = $"http://{serverName}:4572"
+                    ServiceURL = $"http://{serverName}:4572",
+                    ForcePathStyle = true
                 }));
 
             endpointConfiguration.SendFailedMessagesTo("error");
