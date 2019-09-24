@@ -1,52 +1,16 @@
 version: '3.7'
 
 services:
-  localstack:
-    image: localstack/localstack
-    ports:
-      - "4567-4597:4567-4597"
-      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
-    environment:
-      - SERVICES=s3,sqs
-      - DEBUG=1
-      - DATA_DIR=${DATA_DIR- }
-      - PORT_WEB_UI=${PORT_WEB_UI- }
-      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
-      - DOCKER_HOST=unix:///var/run/docker.sock
-      - DEFAULT_REGION=eu-west-1
-      - HOSTNAME=localstack
-      - HOSTNAME_EXTERNAL=localstack
-    volumes:
-      - localstackdata:/tmp/localstack
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  localstack-setup:
-    build:
-      context: ./localstack-setup
-    depends_on:
-      - localstack
-    environment:
-      - "AWS_SECRET_ACCESS_KEY=DUMMY_KEY"
-      - "AWS_ACCESS_KEY_ID=DUMMY_KEY"
-
   server.core:
-    image: server.core
-    depends_on:
-      - localstack-setup
+    image: ${DOCKER_REGISTRY-}server.core
     build:
       context: .
       dockerfile: src/Server.Core/Dockerfile
 
   api.core:
-    image: api.core
-    depends_on:
-      - localstack-setup
+    image: ${DOCKER_REGISTRY-}api.core
     build:
       context: .
       dockerfile: src/Api.Core/Dockerfile
     ports:
       - "8000:80"
-
-volumes:
-  localstackdata:
-  
