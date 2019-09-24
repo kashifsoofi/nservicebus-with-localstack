@@ -8,6 +8,8 @@ COPY *.sln nuget.config ./
 COPY src/*/*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file src/${file%.*}/; done
 
+RUN dotnet sln FullDuplex.Core.sln remove docker-compose.dcproj
+
 # Restore to cache the layers
 RUN dotnet restore
 
