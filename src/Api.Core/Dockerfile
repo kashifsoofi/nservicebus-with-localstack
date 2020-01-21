@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-alpine AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-alpine AS build
 WORKDIR /build
 
 # copy csproj and restore as distinct layers
@@ -22,7 +22,7 @@ FROM build AS publish
 RUN dotnet publish "./src/Api.Core/Api.Core.csproj" -c Release -o /app --no-restore
 
 # Api image
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-alpine
 WORKDIR /app
 COPY --from=publish /app ./
 ENTRYPOINT ["dotnet", "Api.Core.dll"]

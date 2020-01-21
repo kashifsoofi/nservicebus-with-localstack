@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Core", "src\Server.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Core", "src\Shared.Core\Shared.Core.csproj", "{20F613ED-C871-477C-B1E4-48B96CACF794}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Core", "src\Api.Core\Api.Core.csproj", "{F787216E-D8F0-43B2-A1EF-BD47A03B2803}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Core", "src\Api.Core\Api.Core.csproj", "{F787216E-D8F0-43B2-A1EF-BD47A03B2803}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{50D1E59E-815E-4092-AB9C-49083B16DEB8}"
 EndProject
