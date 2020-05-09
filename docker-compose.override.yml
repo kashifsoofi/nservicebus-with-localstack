@@ -1,13 +1,17 @@
 version: '3.7'
 
 services:
-  server.core:
-    depends_on:
-      - localstack-setup
+#  server.core:
+#    depends_on:
+#      - localstack-setup
+#    env_file:
+#      - docker-compose.env
 
-  api.core:
-    depends_on:
-      - localstack-setup
+#  api.core:
+#    depends_on:
+#      - localstack-setup
+#    env_file:
+#      - docker-compose.env
 
   localstack:
     image: localstack/localstack

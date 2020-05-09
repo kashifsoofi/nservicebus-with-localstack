@@ -8,6 +8,8 @@
     using System;
     using System.Threading;
     using Microsoft.Extensions.Hosting;
+    using Shared.Core.Config;
+    using Microsoft.OpenApi.Models;
 
     public class Startup
     {
@@ -21,13 +23,17 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<NServiceBusOptions>(Configuration.GetSection("NServiceBus"));
+
             services.AddControllers();
 
-            services.AddHostedService<NServiceBusService>();
-            services.AddSingleton<IHostedService, NServiceBusService>();
+            services.AddSingleton<NServiceBusService>();
+            services.AddSingleton<IHostedService, NServiceBusService>(
+                serviceProvider => serviceProvider.GetService<NServiceBusService>());
             services.AddSingleton(provider =>
             {
-                var nServiceBusService = provider.GetService<IHostedService>() as NServiceBusService;
+                var nServiceBusService = provider.GetService<NServiceBusService>();
                 if (nServiceBusService.MessageSession != null)
                 {
                     return nServiceBusService.MessageSession;
@@ -47,6 +53,12 @@
                 return nServiceBusService.MessageSession;
             });
             services.AddSingleton(provider => new Lazy<IMessageSession>(provider.GetService<IMessageSession>));
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FullDuplex Messages Api", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +73,17 @@
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 // app.UseHsts();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             // app.UseHttpsRedirection();
             app.UseRouting();

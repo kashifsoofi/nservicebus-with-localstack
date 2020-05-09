@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using NServiceBus;
-
-namespace Api.Core.Controllers
+﻿namespace Api.Core.Controllers
 {
+    using System;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using NServiceBus;
+
     [Route("api/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
@@ -19,9 +17,8 @@ namespace Api.Core.Controllers
             _messageSession = messageSession;
         }
 
-        // GET api/values
-        [HttpGet]
-        public async Task<ActionResult<string>> Get()
+        [HttpPost]
+        public async Task<ActionResult<string>> Post()
         {
             var guid = Guid.NewGuid();
             var message = new RequestDataMessage
@@ -37,7 +34,7 @@ namespace Api.Core.Controllers
         }
 
         [Route("bigmessage")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<string>> BigMessage()
         {
             var guid = Guid.NewGuid();
@@ -53,7 +50,7 @@ namespace Api.Core.Controllers
             return guid.ToString();
         }
 
-        public string RandomString(int size, bool lowerCase)
+        private string RandomString(int size, bool lowerCase)
         {
             StringBuilder builder = new StringBuilder();
             Random random = new Random();
@@ -66,32 +63,6 @@ namespace Api.Core.Controllers
             if (lowerCase)
                 return builder.ToString().ToLower();
             return builder.ToString();
-        }
-
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
