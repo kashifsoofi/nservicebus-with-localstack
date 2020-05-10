@@ -4,7 +4,7 @@ VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 15.0.26730.12
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Core", "src\Server.Core\Server.Core.csproj", "{CA4DB5DB-88E3-45C2-92EC-ED1865FB83B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Core", "src\Shared.Core\Shared.Core.csproj", "{20F613ED-C871-477C-B1E4-48B96CACF794}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "src\Shared.Core\Shared.Core.csproj", "{20F613ED-C871-477C-B1E4-48B96CACF794}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Core", "src\Api.Core\Api.Core.csproj", "{F787216E-D8F0-43B2-A1EF-BD47A03B2803}"
 EndProject

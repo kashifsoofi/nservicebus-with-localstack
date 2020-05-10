@@ -1,0 +1,16 @@
+version: '3.7'
+
+networks:
+  default:
+  localstack-net:
+    external: true
+
+services:
+  localstack-setup:
+    build:
+      context: ./localstack-setup
+    networks:
+      - localstack-net
+    environment:
+      - "AWS_SECRET_ACCESS_KEY=DUMMY_KEY"
+      - "AWS_ACCESS_KEY_ID=DUMMY_KEY"

@@ -1,4 +1,3 @@
-using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server.Core;
@@ -10,8 +9,6 @@ class Program
 {
     static async Task Main()
     {
-        // Thread.Sleep(15000);
-
         IConfiguration configuration = new ConfigurationBuilder()
           .AddJsonFile("appsettings.json", true, true)
           .AddEnvironmentVariables()
