@@ -55,9 +55,9 @@
             endpointConfiguration.DoNotCreateQueues();
 
             var amazonSqsConfig = new AmazonSQSConfig();
-            if (!string.IsNullOrEmpty(this.nServiceBusOptions.SqsServiceUrlOverride))
+            if (!string.IsNullOrEmpty(this.nServiceBusOptions.AwsEndpoint))
             {
-                amazonSqsConfig.ServiceURL = this.nServiceBusOptions.SqsServiceUrlOverride;
+                amazonSqsConfig.ServiceURL = this.nServiceBusOptions.AwsEndpoint;
             }
 
             var transport = endpointConfiguration.UseTransport<SqsTransport>();
@@ -66,9 +66,9 @@
                 amazonSqsConfig));
 
             var amazonSimpleNotificationServiceConfig = new AmazonSimpleNotificationServiceConfig();
-            if (!string.IsNullOrEmpty(this.nServiceBusOptions.SnsServiceUrlOverride))
+            if (!string.IsNullOrEmpty(this.nServiceBusOptions.AwsEndpoint))
             {
-                amazonSimpleNotificationServiceConfig.ServiceURL = this.nServiceBusOptions.SnsServiceUrlOverride;
+                amazonSimpleNotificationServiceConfig.ServiceURL = this.nServiceBusOptions.AwsEndpoint;
             }
 
             transport.ClientFactory(() => new AmazonSimpleNotificationServiceClient(
@@ -79,9 +79,9 @@
             {
                 ForcePathStyle = true,
             };
-            if (!string.IsNullOrEmpty(this.nServiceBusOptions.S3ServiceUrlOverride))
+            if (!string.IsNullOrEmpty(this.nServiceBusOptions.AwsEndpoint))
             {
-                amazonS3Config.ServiceURL = this.nServiceBusOptions.S3ServiceUrlOverride;
+                amazonS3Config.ServiceURL = this.nServiceBusOptions.AwsEndpoint;
             }
 
             var s3Configuration = transport.S3("bucketname", "Samples-FullDuplex-Client");
