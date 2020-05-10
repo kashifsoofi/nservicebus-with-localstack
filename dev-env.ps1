@@ -13,16 +13,12 @@ function Main() {
       $localStackContainerId = docker ps -f "name=localstack" --format "{{.ID}}"
     }
 
-    $dependentCount = docker inspect --format "{{.Config.Labels.DependentCount}}" $localStackContainerId
-    $dependentCount++
-    
-
     docker-compose -f docker-compose.dev-env.yml up #-d
   }
   elseif ($command -eq "stop") {
     docker-compose -f docker-compose.dev-env.yml down -v --rmi local --remove-orphans
 
-    $localStackContainerId = docker ps -f "name=app1_localstack" --format "{{.ID}}"
+    $localStackContainerId = docker ps -f "name=nservicebus-with-localstack_localstack" --format "{{.ID}}"
     if ($null -ne $localStackContainerId) {
       docker-compose -f docker-compose.localstack.yml down -v --rmi local --remove-orphans
     }
