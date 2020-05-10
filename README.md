@@ -58,16 +58,16 @@ s3Configuration.ClientFactory(() => new AmazonS3Client(
 ```
 
 ### Running the sample
-* Execute following on a powershell terminal to start up `LocalStack` and setup sqs queues required to run the sampel
+Execute following on a powershell terminal to start up `LocalStack` and setup sqs queues required to run the sampel
 ```
 ./dev-env.ps1 start
 ```
-* Now you can run both `Api.Core` and `Server.Core`
-** In `Visual Studio` by starting multiple projects
+Now you can run both `Api.Core` and `Server.Core`
+* In `Visual Studio` by starting multiple projects
 OR
-** In `Visual Studio` by starting `docker-compose.dcproj`
+* In `Visual Studio` by starting `docker-compose.dcproj`
 OR
-** From terminal, by using docker-compose up command
+* From terminal, by using docker-compose up command
 
 In all 3 cases you should have both applications running and you can open a browser, navigate to `Api.Core` url and can send messages to `Server.Core`.
 
