@@ -62,16 +62,14 @@ Execute following on a powershell terminal to start up `LocalStack` and setup sq
 ```
 ./dev-env.ps1 start
 ```
-Now you can run both `Api.Core` and `Server.Core`
+Now you can run both `Api.Core` and `Server.Core` by following 1 of the below
 * In `Visual Studio` by starting multiple projects
-OR
 * In `Visual Studio` by starting `docker-compose.dcproj`
-OR
 * From terminal, by using docker-compose up command
 
 In all 3 cases you should have both applications running and you can open a browser, navigate to `Api.Core` url and can send messages to `Server.Core`.
 
 ## References
-[NServiceBus](https://particular.net/nservicebus)
-[LocalStack](https://github.com/localstack/localstack)
-[NServiceBus Full Duplex Sample](https://docs.particular.net/samples/fullduplex/)
+[NServiceBus](https://particular.net/nservicebus)  
+[LocalStack](https://github.com/localstack/localstack)  
+[NServiceBus Full Duplex Sample](https://docs.particular.net/samples/fullduplex/)  
