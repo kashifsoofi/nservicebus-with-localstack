@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Amazon.Runtime;
     using Amazon.S3;
+    using Amazon.SimpleNotificationService;
     using Amazon.SQS;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Options;
@@ -54,6 +55,16 @@
                 new AnonymousAWSCredentials(),
                 amazonSqsConfig));
 
+            var amazonSimpleNotificationServiceConfig = new AmazonSimpleNotificationServiceConfig();
+            if (!string.IsNullOrEmpty(this.nServiceBusOptions.SnsServiceUrlOverride))
+            {
+                amazonSimpleNotificationServiceConfig.ServiceURL = this.nServiceBusOptions.SnsServiceUrlOverride;
+            }
+            
+            transport.ClientFactory(() => new AmazonSimpleNotificationServiceClient(
+                new AnonymousAWSCredentials(),
+                amazonSimpleNotificationServiceConfig));
+
             var amazonS3Config = new AmazonS3Config
             {
                 ForcePathStyle = true,
@@ -70,7 +81,6 @@
 
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();
-            endpointConfiguration.UsePersistence<InMemoryPersistence>();
 
             return endpointConfiguration;
         }
