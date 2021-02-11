@@ -1,27 +1,33 @@
-﻿using Microsoft.AspNetCore.Hosting;
-
-namespace Api.Core
+﻿namespace Api.Core
 {
-    using System.Threading;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.AspNetCore.Hosting;
+    using Serilog;
+    using Serilog.Events;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            Thread.Sleep(15000);
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
+
             CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.ConfigureKestrel(serverOptions =>
+                .UseSerilog()
+                .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(serverOptions =>
+                    {
                     // Set properties and call methods on options
-                })
-                .UseStartup<Startup>();
-            });
+                    })
+                    .UseStartup<Startup>();
+                });
     }
 }

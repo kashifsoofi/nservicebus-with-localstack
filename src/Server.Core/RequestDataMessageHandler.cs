@@ -1,5 +1,6 @@
 namespace Server.Core
 {
+    using System;
     using NServiceBus;
     using System.Threading.Tasks;
     using NServiceBus.Logging;
@@ -16,8 +17,9 @@ namespace Server.Core
 
             var response = new DataResponseMessage
             {
+                Id = Guid.NewGuid(),
                 DataId = message.DataId,
-                String = message.String
+                String = message.String,
             };
 
             await context.Reply(response)

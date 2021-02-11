@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using NServiceBus;
+    using Shared.Core;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +28,7 @@
                 String = "String property value"
             };
 
-            await _messageSession.Send("Samples.FullDuplex.Server", message)
+            await _messageSession.Send(message)
                 .ConfigureAwait(false);
 
             return guid.ToString();
@@ -44,20 +45,39 @@
                 String = RandomString(256000, false)
             };
 
-            await _messageSession.Send("Samples.FullDuplex.Server", message)
+            await _messageSession.Send(message)
                 .ConfigureAwait(false);
 
             return guid.ToString();
         }
 
-        private string RandomString(int size, bool lowerCase)
+        [HttpPost("callback")]
+        public async Task<IActionResult> Callback()
         {
-            StringBuilder builder = new StringBuilder();
-            Random random = new Random();
-            char ch;
-            for (int i = 0; i < size; i++)
+            var guid = Guid.NewGuid();
+            var message = new RequestDataMessage
             {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                DataId = guid,
+                String = "String property value"
+            };
+
+            var response = await _messageSession.Request<DataResponseMessage>(message)
+                .ConfigureAwait(false);
+
+            return new OkObjectResult(new
+            {
+                RequestId = guid,
+                ResponseId = response.Id,
+            });
+        }
+
+        private static string RandomString(int size, bool lowerCase)
+        {
+            var builder = new StringBuilder();
+            var random = new Random();
+            for (var i = 0; i < size; i++)
+            {
+                var ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
                 builder.Append(ch);
             }
             if (lowerCase)

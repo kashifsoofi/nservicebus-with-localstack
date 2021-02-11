@@ -11,6 +11,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Options;
     using NServiceBus;
+    using Shared.Core;
     using Shared.Core.Config;
 
     public class NServiceBusService : IHostedService
@@ -55,9 +56,9 @@
             endpointConfiguration.DoNotCreateQueues();
 
             var amazonSqsConfig = new AmazonSQSConfig();
-            if (!string.IsNullOrEmpty(this.nServiceBusOptions.SqsServiceUrlOverride))
+            if (!string.IsNullOrEmpty(nServiceBusOptions.SqsServiceUrlOverride))
             {
-                amazonSqsConfig.ServiceURL = this.nServiceBusOptions.SqsServiceUrlOverride;
+                amazonSqsConfig.ServiceURL = nServiceBusOptions.SqsServiceUrlOverride;
             }
 
             var transport = endpointConfiguration.UseTransport<SqsTransport>();
@@ -66,9 +67,9 @@
                 amazonSqsConfig));
 
             var amazonSimpleNotificationServiceConfig = new AmazonSimpleNotificationServiceConfig();
-            if (!string.IsNullOrEmpty(this.nServiceBusOptions.SnsServiceUrlOverride))
+            if (!string.IsNullOrEmpty(nServiceBusOptions.SnsServiceUrlOverride))
             {
-                amazonSimpleNotificationServiceConfig.ServiceURL = this.nServiceBusOptions.SnsServiceUrlOverride;
+                amazonSimpleNotificationServiceConfig.ServiceURL = nServiceBusOptions.SnsServiceUrlOverride;
             }
 
             transport.ClientFactory(() => new AmazonSimpleNotificationServiceClient(
@@ -79,9 +80,9 @@
             {
                 ForcePathStyle = true,
             };
-            if (!string.IsNullOrEmpty(this.nServiceBusOptions.S3ServiceUrlOverride))
+            if (!string.IsNullOrEmpty(nServiceBusOptions.S3ServiceUrlOverride))
             {
-                amazonS3Config.ServiceURL = this.nServiceBusOptions.S3ServiceUrlOverride;
+                amazonS3Config.ServiceURL = nServiceBusOptions.S3ServiceUrlOverride;
             }
 
             var s3Configuration = transport.S3("bucketname", "Samples-FullDuplex-Client");
@@ -91,6 +92,12 @@
 
             endpointConfiguration.SendFailedMessagesTo("error");
             endpointConfiguration.EnableInstallers();
+
+            var routing = transport.Routing();
+            routing.RouteToEndpoint(typeof(RequestDataMessage), "Samples.FullDuplex.Server");
+
+            endpointConfiguration.EnableCallbacks();
+            endpointConfiguration.MakeInstanceUniquelyAddressable("1");
 
             return endpointConfiguration;
         }
