@@ -1,10 +1,11 @@
-using NServiceBus;
-using System;
-#region ResponseMessage
-public class DataResponseMessage :
-    IMessage
+namespace Shared.Core
 {
-    public Guid DataId { get; set; }
-    public string String { get; set; }
+    using NServiceBus;
+    using System;
+
+    public class DataResponseMessage : IMessage
+    {
+        public Guid DataId { get; set; }
+        public string String { get; set; }
+    }
 }
-#endregion

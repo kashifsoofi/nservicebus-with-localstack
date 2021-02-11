@@ -14,10 +14,10 @@ The application consists of following components
 Common library with common message types that are exchanged between Client and Server. It also contains a POCO to load configuration from appsettings.
 
 ### Api.Core
-ASP.NET Core 3.1 WebApi application, this acts as NServiceBus client endpoint and sends messages to server. The code to send messages is in `MessagesController.cs`. It also implements a MessageHandler for `DataResponseMessage` to receive reply from server.
+ASP.NET 5 WebApi application, this acts as NServiceBus client endpoint and sends messages to server. The code to send messages is in `MessagesController.cs`. It also implements a MessageHandler for `DataResponseMessage` to receive reply from server.
 
 ### Server.Core
-ASP.NET Core 3.1 console application, this acts as NServiceBus server endpoint. It implements message handler for `RequestDataMessage`, that handler is invoked by NServiceBus dispatcher when a message arrives in this endpoint's queue.
+ASP.NET 5 console application, this acts as NServiceBus server endpoint. It implements message handler for `RequestDataMessage`, that handler is invoked by NServiceBus dispatcher when a message arrives in this endpoint's queue.
 
 ## Run Sample With LocalStack
 
@@ -58,7 +58,7 @@ s3Configuration.ClientFactory(() => new AmazonS3Client(
 ```
 
 ### Running the sample
-Execute following on a powershell terminal to start up `LocalStack` and setup sqs queues required to run the sampel
+Execute following on a powershell terminal to start up `LocalStack` and setup sqs queues required to run the sample
 ```
 ./dev-env.ps1 start
 ```

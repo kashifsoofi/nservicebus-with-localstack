@@ -1,32 +1,27 @@
-using NServiceBus;
-using System.Threading.Tasks;
-using NServiceBus.Logging;
-
-#region RequestDataMessageHandler
-
-public class RequestDataMessageHandler :
-    IHandleMessages<RequestDataMessage>
-#endregion
+namespace Server.Core
 {
-    static ILog log = LogManager.GetLogger<RequestDataMessageHandler>();
+    using NServiceBus;
+    using System.Threading.Tasks;
+    using NServiceBus.Logging;
+    using Shared.Core;
 
-    public async Task Handle(RequestDataMessage message, IMessageHandlerContext context)
+    public class RequestDataMessageHandler : IHandleMessages<RequestDataMessage>
     {
-        log.Info($"Received request {message.DataId}.");
-        log.Info($"String received: {message.String}.");
+        static readonly ILog log = LogManager.GetLogger<RequestDataMessageHandler>();
 
-        #region DataResponseReply
-
-        var response = new DataResponseMessage
+        public async Task Handle(RequestDataMessage message, IMessageHandlerContext context)
         {
-            DataId = message.DataId,
-            String = message.String
-        };
+            log.Info($"Received request {message.DataId}.");
+            log.Info($"String received: {message.String}.");
 
-        await context.Reply(response)
-            .ConfigureAwait(false);
+            var response = new DataResponseMessage
+            {
+                DataId = message.DataId,
+                String = message.String
+            };
 
-        #endregion
+            await context.Reply(response)
+                .ConfigureAwait(false);
+        }
     }
-
 }

@@ -3,13 +3,11 @@
     using System.Threading.Tasks;
     using NServiceBus;
     using NServiceBus.Logging;
+    using Shared.Core;
 
-    #region DataResponseMessageHandler
-    class DataResponseMessageHandler :
-        IHandleMessages<DataResponseMessage>
-    #endregion
+    class DataResponseMessageHandler : IHandleMessages<DataResponseMessage>
     {
-        static ILog log = LogManager.GetLogger<DataResponseMessageHandler>();
+        static readonly ILog log = LogManager.GetLogger<DataResponseMessageHandler>();
         public Task Handle(DataResponseMessage message, IMessageHandlerContext context)
         {
             log.Info($"Response received with description: {message.String}");

@@ -45,7 +45,7 @@
                 if (!SpinWait.SpinUntil(() => nServiceBusService.MessageSession != null || nServiceBusService.StartupException != null,
                     timeout))
                 {
-                    throw new TimeoutException($"Unable to resolve the message session within '{timeout.ToString()}'. If you are trying to resolve the session within hosted services it is encouraged to use `Lazy<IMessageSession>` instead of `IMessageSession` directly");
+                    throw new TimeoutException($"Unable to resolve the message session within '{timeout}'. If you are trying to resolve the session within hosted services it is encouraged to use `Lazy<IMessageSession>` instead of `IMessageSession` directly");
                 }
 
                 nServiceBusService.StartupException?.Throw();
